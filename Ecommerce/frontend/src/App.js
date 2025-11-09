@@ -13,7 +13,6 @@ import {
 } from './Pages'
 import { Header, Footer, ProtectedLinks } from './Components/Global'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-
 function App() {
     return (
         <BrowserRouter>
@@ -49,4 +48,4 @@ function App() {
     )
 }
 
-export default App
+export default App;

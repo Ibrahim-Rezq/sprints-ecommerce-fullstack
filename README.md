@@ -1,215 +1,319 @@
-# Sprints_Online_Store
+# Sprints E-commerce Full Stack
 
-## Descrption
+## 📋 Project Overview
 
-An ecommerce website for all your gaming needs from consoles to accessories
+A full-stack e-commerce web application built with **Django REST API** backend and **React.js** frontend. This project was developed as part of the **Sprints Bootcamp Program** through a collaborative team effort, showcasing modern web development practices, RESTful API design, and single-page application architecture.
 
-## Softwares used
-
--   ### VSCode "IDE"
--   ### Github "Source control"
--   ### Trello "Tasks manager"
--   ### Slack "Communication"
-
-
-## Sprints' Online Store Backend API (Django):
-
-## Introduction ##
-
-This is a REST API for an E-commerce website that interacts with any Frontend.
+The application provides a complete online shopping experience with user authentication, product browsing, shopping cart functionality, order management, and an admin dashboard.
 
 ---
-## Setup ##
-### Database config ###
-The API backend connects with sqlite database, but any other database can be used instead in case of production.
-### Database Schema ###
-***Schema.png*** is located in the root folder.
-### Start ###
-For Complete project 
 
-Clone the repo:  ***git clone*** **https://github.com/Ibrahim-Rezq/Sprints-Project.git**
-```
-```
-For Backend  
+## 🏗️ Architecture
 
-Clone the repo:  ***git clone*** **https://github.com/Ahmed-Abdelgawad-Dev/Sprints_Online_Store_API_Backend.git**
-```
-```
-Use a virtual environment that you prefere.Could be pipenv | venv | conda. 
+### Full Stack Architecture
 
-Install the required packages:
-```shell
+This project demonstrates a **complete separation of concerns** between frontend and backend:
+
+- **Backend (Django REST API)**: Handles business logic, data persistence, authentication, and serves RESTful endpoints
+- **Frontend (React SPA)**: Provides an interactive user interface, manages client-side state with Redux Toolkit, and communicates with the backend via HTTP requests
+- **Database (SQLite/PostgreSQL)**: Stores users, products, orders, and relationships
+
+### Team Collaboration
+
+The project was split between two specialized teams:
+- **Backend Team**: Django REST API development
+- **Frontend Team**: React.js SPA development
+
+---
+
+## 🛠️ Technology Stack
+
+### Backend
+- **Django** - Python web framework
+- **Django REST Framework** - RESTful API toolkit
+- **SQLite** - Development database (PostgreSQL ready for production)
+- **python-dotenv** - Environment variable management
+
+### Frontend
+- **React.js** - UI library
+- **Redux Toolkit** - State management
+- **React Router v6** - Client-side routing
+- **Axios** - HTTP client
+- **Bootstrap** - UI framework
+- **Styled Components** - CSS-in-JS styling
+- **React Icons** - Icon library
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+- Python 3.8 or higher
+- Node.js 14 or higher
+- npm or yarn
+- pip (Python package manager)
+
+### Installation
+
+#### 1. Clone the Repository
+```bash
+git clone https://github.com/Ibrahim-Rezq/sprints-ecommerce-fullstack.git
+cd sprints-ecommerce-fullstack
+```
+
+#### 2. Backend Setup
+
+**Create and activate virtual environment:**
+```bash
+# Using venv
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+
+# Or using conda
+conda create -n ecommerce python=3.8
+conda activate ecommerce
+```
+
+**Install dependencies:**
+```bash
 pip install -r requirements.txt
 ```
-Apply migrations:
-```shell
+
+**Configure environment variables:**
+
+Create a `.env` file in the backend root directory:
+```env
+SECRET_KEY=your-django-secret-key-here
+DATABASE_URL=sqlite:///db.sqlite3
+DEBUG=True
+ALLOWED_HOSTS=localhost,127.0.0.1
+```
+
+**Run migrations:**
+```bash
 python manage.py migrate
 ```
-Create an admin user:
-```shell
+
+**Create admin user:**
+```bash
 python manage.py createsuperuser
 ```
-Run the server:
-```shell
+
+**Start backend server:**
+```bash
 python manage.py runserver
 ```
-### Environment variables ###
+Backend will run on `http://127.0.0.1:8000`
 
-**.env is required  and must be inside .git ignore for security.**
-Here python dotenv package is used, feel free to use any other solution, also put any other credentials here like api secrets key ...etc.
-Example for the required `.env` :.
-```dotenv
-SECRET_KEY=django-insecure-9kr=#(!7bp2n65^e4i!5vm6e_3ux3qd7nb0jc2j@i7jyhw)6qa
-DATABASE=....etc
+#### 3. Frontend Setup
+
+**Navigate to frontend directory:**
+```bash
+cd Ecommerce/frontend
 ```
-### Release port 8000 if needed: Unix based OS ###
-`sudo lsof -t -i tcp:8000 | xargs kill -9
-`
+
+**Install dependencies:**
+```bash
+npm install
+```
+
+**Configure environment variables:**
+
+Create a `.env` file in the frontend directory:
+```env
+REACT_APP_API_KEY=http://127.0.0.1:8000/
+```
+
+**Start frontend development server:**
+```bash
+npm start
+```
+Frontend will run on `http://localhost:3000`
+
 ---
-## Endpoints ##
 
-```http request
-        'users/'
-        POST: 'login/' 
-        GET:  'get_user/'
-        GET:  'get_users/'
-        PUT:  'update_user/'
-        POST: 'register_user/'
+## 🔌 API Endpoints
 
-        'products/' 
-        GET:  ''                          |     get all products
-        GET:  '/{id}'                     |     get a product
+### Authentication & Users
 
-        'orders/'
-        GET: ''                           | get orders of user  
-        POST:  'add_order/'               | add items to order or make an order and put items inside
-        GET:  'my_orders/'                | get orders of a user
-        POST: '{order_id}/Delivered/'     | change the order status to delivered after delivery
-        GET:  '{order_id}/'               | get order by order id
-        POST: '{order_id}/paid/'          | change the payment status to paid
+| Endpoint | Method | Parameters | Description |
+|----------|--------|------------|-------------|
+| `/users/register_user/` | POST | firstname, lastname, username, password | Register new user |
+| `/users/login/` | POST | username, password | User login (returns token) |
+| `/users/get_user/` | GET | - | Get current user details |
+| `/users/get_users/` | GET | - | Get all users (admin) |
+| `/users/update_user/` | PUT | user fields | Update user information |
 
-```
-## Sprints' Online Store Frontend (React):
+### Products
 
-### Built With
+| Endpoint | Method | Parameters | Description |
+|----------|--------|------------|-------------|
+| `/products/` | GET | - | Get all products |
+| `/products/{id}/` | GET | id | Get single product details |
 
--   React.js
--   React-Router V6
--   ReduxToolkit
--   Bootstrap
+### Orders
 
+| Endpoint | Method | Parameters | Description |
+|----------|--------|------------|-------------|
+| `/orders/` | GET | - | Get user's orders |
+| `/orders/add_order/` | POST | order details | Create new order |
+| `/orders/my_orders/` | GET | - | Get current user's orders |
+| `/orders/{order_id}/` | GET | order_id | Get order by ID |
+| `/orders/{order_id}/paid/` | POST | order_id | Mark order as paid |
+| `/orders/{order_id}/Delivered/` | POST | order_id | Mark order as delivered |
 
-### Run Project "Development" (Run Backend First)
+---
 
-Go to folder
-```
-1. cd ./Ecommerce/frontend/
-```
-Install the required packages
+## 📁 Project Structure
 
 ```
-1. npm i
-```
-Run the Project
-
-```
-1. npm run start
-```
-
-### Environment variables ###
-
-
-**.env is required  and must be inside .git ignore for security.**
-
-The file `.env` should be in the root of the frontend `./Ecommerce/frontend/` for the project to function correctly
-
-```dotenv
-REACT_APP_API_KEY= https://127.0.0.1:8000/ || (Backend URL)
-```
-
-
-## The E-commerce Project File Structure (frontend)
-
-## SRC
-
-1.  ### Pages "Veiws"
-
-    > #### _each page has 2 main componenets nav and footer_
-
-    -   #### Home
-    -   #### About
-    -   #### Products
-    -   #### SingleProduct
-    -   #### Cart
-    -   #### CheckOut
-    -   #### Login/Rigister
-    -   #### Account Info
-
+sprints-ecommerce-fullstack/
+├── Ecommerce/
+│   └── frontend/              # React frontend application
+│       ├── src/
+│       │   ├── pages/        # Page components (views)
+│       │   ├── components/   # Reusable UI components
+│       │   ├── assets/       # Images and static files
+│       │   ├── css/          # Global styles
+│       │   ├── utils/        # Utility functions
+│       │   └── redux/        # Redux store and slices
+│       ├── public/
+│       └── package.json
+├── backend/                   # Django backend (if included)
+│   ├── users/                # User authentication app
+│   ├── products/             # Products app
+│   ├── orders/               # Orders app
+│   ├── manage.py
+│   └── requirements.txt
+├── Schema.png                # Database schema diagram
+└── README.md
 ```
 
-```
+---
 
-2.  ## Componenets
+## 🗄️ Database Schema
 
-    > #### _F->somthing_ //this is a function of the parent listItem
-    >
-    > #### if _F->somthing_ is not present then the component is a static one
+The database schema diagram (`Schema.png`) is located in the root folder, showing the relationships between:
+- **Users** - Customer accounts and authentication
+- **Products** - Product catalog
+- **Orders** - Order management
+- **Order Items** - Many-to-many relationship between orders and products
 
--   #### Navigation
--   #### NavLinks
--   #### ProtectedLinks
--   #### Hero
--   #### Fetured
--   #### Contact
--   #### ProcuctsVeiw
--   #### Filters
--   #### ProductCard
--   #### ProductImagePreview
--   #### AddToCart
--   #### AddToCartButton
--   #### CartAmountButtons
--   #### ProductReviews
--   #### SingleProductReviews
--   #### AddReview
--   #### CartVeiw
--   #### CartItem
--   #### ProcedeToCheckOut
--   #### CheckOut
--   #### OrdersVeiw
--   #### SingleOrder
--   #### AdminDashboard
--   #### Sales
--   #### SalesData
--   #### Products
--   #### Customers
--   #### Edits
--   #### ProductsData
--   #### CustomersData
--   #### AccountInfo
--   #### Profile <sup>A.K.A name||password<sup>
+---
 
-```
+## 🎯 Key Features
 
-```
+### User Features
+- User registration and authentication
+- Browse product catalog
+- Product search and filtering
+- Shopping cart management
+- Order creation and tracking
+- User profile management
 
-3.  ## Assets
+### Admin Features
+- Product management (CRUD operations)
+- Order management
+- User management
+- Sales dashboard
+- Customer data analytics
 
-    -   #### images and stuff :)
+---
 
-```
+## 📚 What We Learned
 
-```
+### Backend Development
+- RESTful API design principles
+- Django REST Framework best practices
+- Database schema design and relationships
+- Authentication and authorization
+- API endpoint development and testing
+- Environment configuration management
 
-4.  ## Css
+### Frontend Development
+- React.js component architecture
+- Redux Toolkit for state management
+- React Router v6 for navigation
+- API integration with Axios
+- Responsive design with Bootstrap
+- CSS-in-JS with Styled Components
+- Reusable component patterns
+- Team collaboration on large-scale React projects
 
-    > #### _Other CSS will be within the componenets using styledComponents_
+### Full Stack Integration
+- Frontend-backend communication
+- CORS configuration
+- API consumption best practices
+- Environment variable management
+- Full stack application deployment strategies
 
-    -   #### index.css
+---
 
-```
+## 👥 Team & Contributors
 
-```
+### Frontend Team (React.js)
 
-5.  ## Utilits
+**Frontend Lead Developer:**
+- **Ibrahim Rezq** - [@Ibrahim-Rezq](https://github.com/Ibrahim-Rezq) (37 commits)
+  - Project architecture and component structure
+  - Redux Toolkit state management
+  - Team coordination and code reviews
+  - Core feature implementation
 
-> #### _Utilits functions for later use like PriceFormating and Array's data merging etc..._
+**Frontend Developers:**
+- **Habiba Mohammad** - [@Habiba-Mohammad](https://github.com/Habiba-Mohammad) (15 commits)
+- **Wespro** - [@Wespro](https://github.com/Wespro) (10 commits)
+- **Seif Omran** - [@seifomran132](https://github.com/seifomran132) (6 commits)
+- **Ebrahim** - [@Ebrahim15](https://github.com/Ebrahim15) (2 commits)
+
+### Backend Team (Django REST API)
+
+**Backend Lead Developer:**
+- **Ahmed Abdelgawad** - [@Ahmed-Abdelgawad-Dev](https://github.com/Ahmed-Abdelgawad-Dev)
+  - Complete Django REST API implementation
+  - Database design and migrations
+  - Authentication system
+  - All API endpoints
+
+---
+
+## 📝 Project Context
+
+This project was developed as part of the **Sprints Bootcamp Program** to demonstrate full-stack web development skills through team collaboration. The project showcases:
+
+- **Team Collaboration**: Coordinated development between frontend and backend teams
+- **Modern Web Stack**: Industry-standard technologies (Django + React)
+- **Professional Practices**: Git workflow, code reviews, and documentation
+- **Real-world Application**: Complete e-commerce platform with authentication and payments
+
+---
+
+## 🔧 Development Tools
+
+- **VS Code** - IDE
+- **GitHub** - Source control and collaboration
+- **Trello** - Task management
+- **Slack** - Team communication
+- **Postman** - API testing (backend)
+- **React DevTools** - React debugging (frontend)
+
+---
+
+## 🙏 Acknowledgments
+
+- Sprints Bootcamp Program for the project opportunity
+- All team members for their contributions
+- Django and React communities for excellent documentation
+
+---
+
+## 📄 License
+
+This project was created as part of the Sprints Bootcamp Program.
+
+---
+
+## 🔗 Related Repositories
+
+- **Backend Repository**: [Sprints Online Store API Backend](https://github.com/Ahmed-Abdelgawad-Dev/Sprints_Online_Store_API_Backend)
+- **Main Repository**: [sprints-ecommerce-fullstack](https://github.com/Ibrahim-Rezq/sprints-ecommerce-fullstack)
